@@ -41,6 +41,20 @@ services:
     networks:
       - net
 
+flowise:
+    platform: linux/x86_64
+    image: flowiseai/flowise
+    restart: always
+    env_file:
+      - ./flowise.env
+    ports:
+      - "${FLOWISE_PORT:-3000}:3000"
+    volumes:
+        - ~/.flowise:/root/.flowise
+    command: /bin/sh -c "sleep 3; flowise start"
+    networks:
+      - net
+      
 volumes:
   chroma-data:
     driver: local
